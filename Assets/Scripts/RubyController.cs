@@ -7,8 +7,11 @@ using UnityEngine.SceneManagement;
 public class RubyController : MonoBehaviour
 {
     public float speed = 3.0f;
+    public float slowspeed = 1.0f;
 
+    public float normalspeed = 3.0f;
     public int maxHealth = 5;
+    public int cogs = 4;
     public GameObject projectilePrefab;
 
     public ParticleSystem healthIncrease;
@@ -18,6 +21,8 @@ public class RubyController : MonoBehaviour
 
     public Text scoreText;
     public Text winloseText;
+    public Text ammoText;
+    public Text timerText;
 
     public AudioSource audioSource;
     public AudioClip throwSound;
@@ -25,8 +30,14 @@ public class RubyController : MonoBehaviour
     public AudioClip backgroundmusic;
     public AudioClip victorymusic;
     public AudioClip gameovermusic;
+    public AudioClip npctalk;
+    public AudioClip gearclip;
 
     public float timeInvincible = 2.0f; 
+
+    public float timeRemaining = 60;
+
+    public bool timerIsRunning = false;
 
     public static int level=1;
 
@@ -34,6 +45,7 @@ public class RubyController : MonoBehaviour
     int currentHealth;
 
     private int scoreValue = 0;
+    
 
     bool isInvincible;
     float invincibleTimer;
@@ -52,6 +64,7 @@ public class RubyController : MonoBehaviour
     {
         scoreText.text = "Fixed Robots: " + scoreValue.ToString();
         winloseText.text = "";
+        ammoText.text = "Cogs: " + cogs.ToString();
         
         rigidbody2d = GetComponent<Rigidbody2D>();
         currentHealth = maxHealth;
@@ -61,12 +74,47 @@ public class RubyController : MonoBehaviour
         audioSource.clip = backgroundmusic;
         audioSource.Play();
         audioSource.loop = true;
-
+        timerIsRunning = true;
     }
 
     // Update is called once per frame
     void Update()
     {
+        DisplayTime(timeRemaining);
+        if (timerIsRunning)
+        {
+            if (timeRemaining > 0)
+            {
+                timeRemaining -= Time.deltaTime;
+                Debug.Log(timeRemaining);
+            }
+            else
+            {
+                timeRemaining = 0;
+                timerIsRunning = false;
+            }
+        }
+        if (timeRemaining < 0)
+        {
+            audioSource.clip = gameovermusic;
+            audioSource.Play();
+            audioSource.loop = false;
+            winloseText.text = "Game Over! Press R to Restart";
+            speed = 0.0f;
+            timeRemaining = 0;
+        }
+        if (timeRemaining == 0)
+        {
+            if (Input.GetKey(KeyCode.R))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                audioSource.clip = backgroundmusic;
+                audioSource.Play();
+                audioSource.loop = true;
+            }
+            
+        }
+
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
         
@@ -89,7 +137,14 @@ public class RubyController : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.C))
         {
-            Launch();
+            if(cogs != 0)
+            {
+                Launch();
+                cogs--;
+                ammoText.text = "Cogs: " + cogs.ToString();
+            }
+            
+            
         }
         if (Input.GetKeyDown(KeyCode.X))
         {
@@ -97,15 +152,19 @@ public class RubyController : MonoBehaviour
             if (hit.collider != null)
             {
                 NonPlayerCharacter character = hit.collider.GetComponent<NonPlayerCharacter>();
+                
                 if (character != null)
                 {
+                    PlaySound(npctalk);
                     character.DisplayDialog();
+                    
                 }
                 if (scoreValue >= 4)
                 {
-                    SceneManager.LoadScene("Challenge3"); 
+                    SceneManager.LoadScene("Finalproject"); 
                     level++;
                 }
+                
             }
         }
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -200,6 +259,7 @@ public class RubyController : MonoBehaviour
                 audioSource.clip = victorymusic;
                 audioSource.Play();
                 audioSource.loop = false;
+                timerIsRunning = false;
             }
     }
 
@@ -220,5 +280,24 @@ public class RubyController : MonoBehaviour
     public void PlaySound(AudioClip clip)
     {
         audioSource.PlayOneShot(clip);
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.tag == "Ammo")
+        {
+            cogs += 3;
+            ammoText.text = "Cogs: " + cogs.ToString();
+            Destroy(collision.collider.gameObject);
+            PlaySound(gearclip);
+        }
+    }
+
+    void DisplayTime(float timeToDisplay)
+    {
+        float minutes = Mathf.FloorToInt(timeToDisplay / 60);  
+        float seconds = Mathf.FloorToInt(timeToDisplay % 60);
+
+        timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 }

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1428501518630557972}
   - component: {fileID: 7898477815858262036}
   - component: {fileID: 7561058997212263692}
-  - component: {fileID: 9081174226947787366}
+  - component: {fileID: 1318359799}
   m_Layer: 8
   m_Name: Ruby
   m_TagString: RubyController
@@ -103,16 +103,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   maxHealth: 5
+  cogs: 4
   projectilePrefab: {fileID: 2350524673958127107, guid: 46832b5e0e8f4364495368660eef2636,
     type: 3}
   healthIncrease: {fileID: 9164556177335148634, guid: 6777b10481de10547a983fbecf104a1e,
     type: 3}
   healthDecrease: {fileID: 6573316249098577562, guid: ff284ed23cda5344c99681b5a94fda6f,
     type: 3}
+  winlose: 1
   scoreText: {fileID: 0}
   winloseText: {fileID: 0}
+  ammoText: {fileID: 0}
+  audioSource: {fileID: 1318359799}
   throwSound: {fileID: 8300000, guid: 8391ecbcd24fe244dbe64f98bb6d0f36, type: 3}
   hitSound: {fileID: 8300000, guid: fe4ca87bf65ba814590eae0f7ebce570, type: 3}
+  backgroundmusic: {fileID: 8300000, guid: 359888fa1718d3947946fcde1d146219, type: 3}
+  victorymusic: {fileID: 8300000, guid: d6df214bdeacf5744a694309df37e5d1, type: 3}
+  gameovermusic: {fileID: 8300000, guid: b30f5526628752045a21897988038daa, type: 3}
   timeInvincible: 2
 --- !u!50 &1428501518630557972
 Rigidbody2D:
@@ -180,7 +187,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!82 &9081174226947787366
+--- !u!82 &1318359799
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -192,7 +199,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0

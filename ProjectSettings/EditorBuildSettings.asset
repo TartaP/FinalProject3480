@@ -8,7 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Ruby.unity
     guid: 8ffd274ac1b46414d9a8af7037007501
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Challenge3.unity
     guid: f4280450de5ac32449c9916348f5fe07
+  - enabled: 1
+    path: Assets/Scenes/Finalproject.unity
+    guid: b9b7dc2a5e3e0d34894e13c49fbb530f
   m_configObjects: {}

@@ -44,6 +44,8 @@
      <Compile Include="Assets\Scripts\RubyController.cs" />
      <Compile Include="Assets\Scripts\DamageZone.cs" />
      <Compile Include="Assets\Scripts\NonPlayerCharacter.cs" />
+     <Compile Include="Assets\Scripts\GearCollectible.cs" />
+     <Compile Include="Assets\Scripts\SlowZone.cs" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
@@ -608,9 +610,6 @@
     <Reference Include="Unity.TextMeshPro.Editor">
         <HintPath>D:/Users/tiger/Desktop/UNITY/FinalProject/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.EditorCoroutines.Editor">
-        <HintPath>D:/Users/tiger/Desktop/UNITY/FinalProject/Library/ScriptAssemblies/Unity.EditorCoroutines.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.UI">
         <HintPath>D:/Users/tiger/Desktop/UNITY/FinalProject/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
@@ -631,9 +630,6 @@
     </Reference>
     <Reference Include="Unity.VisualStudio.Editor">
         <HintPath>D:/Users/tiger/Desktop/UNITY/FinalProject/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="GaiMAssembly">
-        <HintPath>D:/Users/tiger/Desktop/UNITY/FinalProject/Library/ScriptAssemblies/GaiMAssembly.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
         <HintPath>D:/Users/tiger/Desktop/UNITY/FinalProject/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
